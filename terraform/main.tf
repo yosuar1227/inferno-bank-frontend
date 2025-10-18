@@ -25,6 +25,7 @@ resource "aws_s3_bucket_website_configuration" "apgular_app" {
 resource "aws_s3_bucket_public_access_block" "angular_app" {
   bucket                  = aws_s3_bucket.angular_app.id
   block_public_acls       = true
+  block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
@@ -62,8 +63,8 @@ resource "aws_cloudfront_distribution" "angular_app" {
   default_root_object = "index.html"
 
   origin {
-    domain_name = aws_s3_bucket.angular_app.bucket_domain_name
-    origin_id   = aws_s3_bucket.angular_app.bucket_domain_name
+    domain_name = aws_s3_bucket.angular_app.bucket_regional_domain_name
+    origin_id   = aws_s3_bucket.angular_app.bucket_regional_domain_name
 
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.angular_app.cloudfront_access_identity_path
@@ -73,13 +74,13 @@ resource "aws_cloudfront_distribution" "angular_app" {
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_s3_bucket.angular_app.bucket_domain_name
+    target_origin_id = aws_s3_bucket.angular_app.bucket_regional_domain_name
     compress         = true
 
     forwarded_values {
       query_string = false
       cookies {
-        forward = "none"
+        forward = "all"
       }
     }
 
