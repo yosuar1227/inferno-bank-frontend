@@ -1,0 +1,260 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex-grow: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* --- GRID DE TARJETAS DE SERVICIOS --- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.service-card {
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+  color: #fff;
+  min-height: 320px;
+}
+
+.service-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px var(--shadow-color);
+  border-color: var(--accent-cyan);
+}
+
+.card-header .category-badge {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.card-header .provider {
+  font-family: var(--font-header);
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.card-header .service-name {
+  color: var(--text-secondary);
+  margin: 0.25rem 0 0;
+}
+
+.card-body .plan-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.card-body .price {
+  font-size: 2rem;
+  font-family: var(--font-header);
+  margin: 0.5rem 0;
+}
+
+.card-body .details {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.card-footer {
+  margin-top: 1.5rem;
+}
+
+.status-active {
+  color: var(--accent-green);
+  font-weight: bold;
+}
+
+/* --- DEGRADADOS PARA LAS TARJETAS --- */
+.gradient-1 {
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.gradient-2 {
+  background-image: linear-gradient(135deg, #0ba360 0%, #3cba92 100%);
+}
+.gradient-3 {
+  background-image: linear-gradient(135deg, #f7941e 0%, #72c6ef 100%);
+}
+.gradient-4 {
+  background-image: linear-gradient(135deg, #ff6a88 0%, #ff9a8b 100%);
+}
+.gradient-5 {
+  background-image: linear-gradient(135deg, #0acffe 0%, #495aff 100%);
+}
+.gradient-6 {
+  background-image: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+}
+.gradient-7 {
+  background-image: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+  color: #333;
+}
+.gradient-8 {
+  background-image: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+/* --- ESTILOS DEL DIÁLOGO (MODAL) --- */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.dialog-content {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  animation: slideIn 0.4s ease;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.dialog-header h2 {
+  font-family: var(--font-header);
+  color: var(--accent-cyan);
+  margin-top: 0;
+}
+
+.service-summary {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.summary-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 1rem;
+}
+
+.payment-options {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.payment-options input[type='radio'] {
+  display: none;
+}
+
+.payment-card {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.payment-card:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--accent-purple);
+}
+
+.payment-options input[type='radio']:checked + .payment-card {
+  border-color: var(--accent-cyan);
+  background-color: rgba(0, 229, 255, 0.1);
+  color: var(--accent-cyan);
+}
+
+.pay-button {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 2rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: var(--font-header);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pay-button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(174, 71, 255, 0.4);
+}
+
+/* --- ANIMACIONES Y RESPONSIVIDAD --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 1rem;
+  }
+  .main-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}

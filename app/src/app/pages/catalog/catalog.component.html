@@ -1,0 +1,94 @@
+<div class="page-container">
+    <!-- ======================= HEADER ======================= -->
+     <app-header></app-header>
+    <!-- ======================= CONTENIDO PRINCIPAL ======================= -->
+    <main class="content-wrapper">
+        <!-- Manejo de los estados de carga y error, con un estilo más integrado. -->
+        @if (loading()) {
+        <p class="status-message">Cargando catálogo de servicios...</p>
+        } @else if (error()) {
+        <div class="status-message error-message">
+            <p><strong>Error:</strong> {{ error() }}</p>
+        </div>
+        } @else {
+        <!-- Aquí creamos la cuadrícula (grid) para mostrar las tarjetas. -->
+        <div class="services-grid">
+            <!-- El bloque @for de Angular recorre todos los servicios que llegaron de la API. -->
+            @for (service of services(); track service.ID; let i = $index) {
+            <!-- Esta es la estructura de cada tarjeta vertical. -->
+            <!-- Al hacer clic en ella, llamamos a la función openDialog() del archivo .ts -->
+            <div class="service-card gradient-{{ (i % 8) + 1 }}" (click)="openDialog(service)">
+                <div class="card-header">
+                    <span class="category-badge">{{ service.categoria }}</span>
+                    <h2 class="provider">{{ service.proveedor }}</h2>
+                    <p class="service-name">{{ service.servicio }}</p>
+                </div>
+                <div class="card-body">
+                    <p class="plan-name">{{ service.plan }}</p>
+                    <p class="price">{{ service.precioMensual }}</p>
+                    <p class="details">{{ service.detalles }}</p>
+                </div>
+                <div class="card-footer">
+                    <span class="status-active">{{ service.estado }}</span>
+                </div>
+            </div>
+            }
+        </div>
+        }
+    </main>
+    <app-footer></app-footer>
+</div>
+
+<!-- ======================= DIÁLOGO MODAL DE PAGO ======================= -->
+<!-- Esta sección está oculta por defecto. -->
+<!-- Solo se muestra cuando el signal isDialogOpen() es true. -->
+@if (isDialogOpen() && selectedService()) {
+<div class="dialog-overlay" (click)="closeDialog()">
+    <div class="dialog-content" (click)="$event.stopPropagation()">
+        <button class="close-button" (click)="closeDialog()">&times;</button>
+
+        <div class="dialog-header">
+            <h2>Confirmación de Pago</h2>
+            <p>Estás a punto de contratar el siguiente servicio:</p>
+        </div>
+
+        <!-- Muestra la información del servicio seleccionado -->
+        <div class="service-summary">
+            <h3>{{ selectedService()?.proveedor }} - {{ selectedService()?.plan }}</h3>
+            <p class="summary-detail"><strong>Servicio:</strong> {{ selectedService()?.servicio }}</p>
+            <p class="summary-detail"><strong>Detalles:</strong> {{ selectedService()?.detalles }}</p>
+            <p class="summary-price">Total a Pagar: <strong>{{ selectedService()?.precioMensual }}</strong></p>
+        </div>
+
+        <!-- El selector de método de pago con las tarjetas de crédito/débito. -->
+        <div class="payment-method">
+            <h4>Selecciona tu método de pago</h4>
+            <div class="payment-options">
+                <input type="radio" id="credito" name="payment" value="credito" checked>
+                <label for="credito" class="payment-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                    </svg>
+                    <span>Tarjeta de Crédito</span>
+                </label>
+
+                <input type="radio" id="debito" name="payment" value="debito">
+                <label for="debito" class="payment-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 5L5 19"></path>
+                        <circle cx="6.5" cy="6.5" r="2.5"></circle>
+                        <circle cx="17.5" cy="17.5" r="2.5"></circle>
+                    </svg>
+                    <span>Tarjeta de Débito</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- El botón final para pagar. -->
+        <button class="pay-button" (click)="handlePayment()">Pagar Ahora</button>
+    </div>
+</div>
+}

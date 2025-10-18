@@ -1,0 +1,131 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+  width: 100%;
+}
+
+.login-form * {
+  box-sizing: border-box;
+}
+
+.login-form {
+  background-color: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.login-title {
+  font-family: var(--font-header);
+  color: var(--accent-cyan);
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+}
+
+.login-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2);
+}
+
+.login-button {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: var(--font-header);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-button:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(174, 71, 255, 0.4);
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.api-response {
+  margin-top: 20px;
+  background-color: rgba(255, 71, 107, 0.1);
+  border: 1px solid #ff476b;
+  color: #ff476b;
+  font-size: 10px;
+  text-align: center;
+}
+
+.login-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #9ca3af; /* gris suave */
+  margin-top: 1rem;
+}
+
+.login-note strong {
+  color: var(--text-primary);
+}
+
+.error-msg {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: #ff476b;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .login-form {
+    margin: 50px 20px 50px 20px;
+  }
+}
